@@ -8,6 +8,30 @@ const registerPerson = (req, res) => {
     res.json({date})
 }
 
+const createTable = () => {
+
+}
+
+const createTask = () => {
+
+}
+
+const editTask = () => {
+
+}
+
+const login = () => {
+
+}
+
+const logout = () => {
+
+}
 module.exports = {
-    registerPerson
+    registerPerson,
+    createTable,
+    createTask,
+    editTask,
+    login,
+    logout
 }

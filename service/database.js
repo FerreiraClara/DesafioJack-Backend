@@ -5,7 +5,7 @@ function connectionDB(){
 const connection = mysql.createConnection({
     host: '127.0.0.1', 
     user: 'root', 
-    password: '',
+    password: '123456',
     database: 'taskly'
 });
 
@@ -17,13 +17,6 @@ connection.connect((err) => {
     console.log('Connection established!')
 })
 
-connection.end((err) => {
-    if(err) {
-        console.log('Erro to finish connection...', err)
-        return 
-    }
-    console.log('The connection was finish...')
-})
 }
 module.exports={
      connectionDB
