@@ -1,7 +1,4 @@
 const mysql = require('mysql');
-
-function connectionDB(){
-    
 const connection = mysql.createConnection({
     host: '127.0.0.1', 
     user: 'root', 
@@ -9,6 +6,8 @@ const connection = mysql.createConnection({
     database: 'taskly'
 });
 
+function connectionDB(){
+  
 connection.connect((err) => {
     if (err) {
         console.log('Erro connecting to database...', err)
@@ -19,5 +18,6 @@ connection.connect((err) => {
 
 }
 module.exports={
-     connectionDB
+     connectionDB,
+     connection
 }
