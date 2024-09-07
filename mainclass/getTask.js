@@ -1,4 +1,5 @@
 function listTask(req){
+
     try{
         const sql = `SELECT * from TASKS where userId = ?`
         const value = [req.decoded.user]
@@ -6,8 +7,8 @@ function listTask(req){
 
         const tasks = result.map((task)=> {
             return {
-                id:task.id,
-                title:task.title,
+                id: task.id,
+                title: task.title,
                 description: task.description
             }
         })
