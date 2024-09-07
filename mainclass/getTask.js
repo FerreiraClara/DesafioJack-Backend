@@ -1,22 +1,12 @@
-function listTask(req){
-
+async function listTask(req,schema){
+    const Task = schema.task
     try{
-        const sql = `SELECT * from TASKS where userId = ?`
-        const value = [req.decoded.user]
-        const [result] =  connect.execute(sql, value)
+        const tasksDb = await Task.find({userId:req.body.userId}).lean()
 
-        const tasks = result.map((task)=> {
-            return {
-                id: task.id,
-                title: task.title,
-                description: task.description
-            }
-        })
-
-        return tasks
+        return tasksDb
     }
     catch(error){
-
+        console.log(error)
     }
 }
 

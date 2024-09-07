@@ -1,16 +1,15 @@
-async function taskDelete(id) {
+async function taskDelete(req, schema) {
 
-    const deleteQuery = 'DELETE FROM tasks WHERE id = ?';
-
-    try {
-        const [result] = await connection.execute(deleteQuery, [id]);
-        console.log('Tarefa removida:', result);
+    const Task = schema.task
+    
+    try{
+        const tasksDb = await Task.findOneDelete({_id:req.body._id}).lean()
 
         return {message:"Tarefa removida"}
-    } catch (error) {
-        console.error('Erro ao remover tarefa:', error);
     }
-
+    catch(error){
+        console.log(error)
+    }
 }
 
 module.exports = {

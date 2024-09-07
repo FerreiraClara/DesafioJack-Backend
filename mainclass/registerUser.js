@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
-async function addUser(req) {
+async function addUser(req, schema) {
+    const User = schema.user
     try {
         const name = req.body.name
         const email = req.body.email
@@ -9,12 +10,17 @@ async function addUser(req) {
         bcrypt.hash(password, saltRounds, function (err, hash) {
             passwordhash = hash
         });
+         
         if (!name && passwordhash) throw new Error('Ocorreu um erro ao criar o cadastro')
 
-        const dataEntry = 'INSERT INTO USER (name, email, password) VALUES (?, ?,?)';
-        const values = [name, email, passwordhash];
-        const [result] = await connection.execute(dataEntry, values);
-        console.log('Dados inseridos:', result);
+        const user = new User({
+                name,
+                email,
+                password: passwordhash
+         })
+        const token = jwt.sign({ _id: user._id }, user, { expiresIn: '12h' });
+        const result = await User.save();
+        await User.findOneUpdate({_id:result._id},{$set:{token}})
 
         return result
     }

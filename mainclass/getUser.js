@@ -1,24 +1,14 @@
 const jwt = require("jsonwebtoken");
-async function dataUser(req) {
+async function dataUser(req,schema) {
 
+    const User = schema.user
     try{
-        const sql = `SELECT * from USER where id = ?`
-        const value = [req.decoded.user]
-        const [result] = connect.execute(sql, value)
+        const userDb = await User.findOne({_id:req.body._id}).lean()
 
-        const users = result.map((user)=> {
-            return {
-                id: user.id,
-                name: user.name,
-                email: task.email,
-                password: task.password
-            }
-        })
-
-        return users
+        return userDb
     }
     catch(error){
-
+        console.log(error)
     }
 }
 
