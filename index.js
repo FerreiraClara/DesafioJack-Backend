@@ -11,18 +11,19 @@ app.jwt = require("jsonwebtoken");
 mongoose.connect(process.env.MONGO_URL);
 
 app.use(express.json());
-app.options('*', (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.sendStatus(200);
-  });
 app.use(cors({
-    origin: '*',
+    origin: 'https://taskly.app.br',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     optionsSuccessStatus: 200
   }));
+  
+app.options('*', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://taskly.app.br');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.sendStatus(200);
+  });
 
 app.use('/', router);
 
