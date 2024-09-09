@@ -1,15 +1,13 @@
 const jwt = require("jsonwebtoken");
+const bcrypt = require('bcrypt')
 async function addUser(req, schema) {
     const User = schema.user
     try {
         const name = req.body.name
-        const email = req.body.email
+        const email =String(req.body.email||'').toLowerCase()
         const password = req.body.password
         const saltRounds = 10
-        let passwordhash = ''
-        bcrypt.hash(password, saltRounds, function (err, hash) {
-            passwordhash = hash
-        });
+        const passwordhash = await bcrypt.hash(password, saltRounds);
          
         if (!name && passwordhash) throw new Error('Ocorreu um erro ao criar o cadastro')
 
@@ -18,14 +16,23 @@ async function addUser(req, schema) {
                 email,
                 password: passwordhash
          })
-        const token = jwt.sign({ _id: user._id }, user, { expiresIn: '12h' });
-        const result = await User.save();
-        await User.findOneUpdate({_id:result._id},{$set:{token}})
+        console.log(String(user._id))
+        const result = await user.save();
+        const secretToken = {
+            _id: String(result._id),
+            email: result.email
+        };
+        const token = jwt.sign(secretToken, '_id', { expiresIn: '12h' });
+        await User.findOneAndUpdate({_id:result._id},{$set:{token:token}})
 
-        return result
+        return {
+            success: true,
+            message: "sucesso no login.",
+            response: { id: result._id, token: "bearer " + token, email:result.email }
+        };
     }
     catch (err) {
-
+        console.log(err)
     }
 }
 

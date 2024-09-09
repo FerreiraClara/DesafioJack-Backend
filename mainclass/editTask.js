@@ -1,12 +1,14 @@
+
+const { ObjectId } = require('mongodb');
 async function taskEdit(req, schema){
     const Task = schema.task
     const body = req.body
     const title = body.title
-    const _id = body._id
+    const _id = new ObjectId(body._id)
     const description = body.description
 
     try {
-        const result = await Task.findOneUpdate({_id: _id},
+        const result = await Task.findOneAndUpdate({_id: _id},
             {
             $set:{
                 title,

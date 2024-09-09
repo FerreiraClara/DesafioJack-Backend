@@ -1,11 +1,12 @@
 const jwt = require("jsonwebtoken");
-async function logOut(){
+async function logOut(req, schema){
         const User = schema.user
-        const user = await User.findOneUpdate({email}, {$set:{token:null}}).lean()
-        return res.json({
+        const email = req.decoded.email
+        const user = await User.findOneAndUpdate({email}, {$set:{token:null}}).lean()
+        return {
             success: true,
             message: "Logout."
-        });
+    }
 }
 
 module.exports = {

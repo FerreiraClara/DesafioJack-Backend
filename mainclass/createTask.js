@@ -7,12 +7,12 @@ async function addTask(req, schema){
 
     try {
         if(!title) throw new Error('Não informado o titulo')
-        const userDb = User.findOne({_id:req.body.userId})
+        const userDb = await User.findOne({_id:req.decoded._id}).lean()
         
         const task = new Task({
             title,
             description,
-            userId: userDb
+            userId: String(userDb._id)
         })
         const result = await task.save()
         console.log('Dados inseridos:', result);

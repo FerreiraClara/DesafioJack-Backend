@@ -5,7 +5,7 @@ module.exports = function (jwt) {
 			if (bearer) {
 				var array = bearer.split(" ");
 				var token = array[1];
-				jwt.verify(token, function (err, decoded) {
+				jwt.verify(token, '_id',function (err, decoded) {
 					if (err) {
 						return res.status(403).json({ success: false, message: "Falha na autenticação do token." });
 					} else {

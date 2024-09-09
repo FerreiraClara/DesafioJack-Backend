@@ -1,9 +1,13 @@
 async function listTask(req,schema){
     const Task = schema.task
     try{
-        const tasksDb = await Task.find({userId:req.body.userId}).lean()
+        const tasksDb = await Task.find({userId:String(req.decoded._id)}).lean()
 
-        return tasksDb
+        return {
+            success: true,
+            message: "sucesso no login.",
+            response: tasksDb
+        };
     }
     catch(error){
         console.log(error)

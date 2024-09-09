@@ -13,62 +13,59 @@ schema.task = require("../models/task.js")(mongoose);
 schema.user = require("../models/user.js")(mongoose);
 
 
-const registerUser = (req, res, schema) => {
+async function registerUser (req, res){
     console.log('Endpoint acionado com sucesso.');
 
-    const user = addUser(req, schema)
-
-    res.json({user})
-}
-
-async function createTable(req, res, schema){
-    const response = addTable(req, schema)
-}
-
-async function getUser(req, res, schema) {
-    const response = dataUser()
+    const response = await addUser(req, schema)
 
     res.json({response})
 }
 
-async function createTask(req, res, schema) {
+
+
+async function getUser(req, res) {
+    const response = await dataUser(req, schema)
+
+    res.json({response})
+}
+
+async function createTask(req, res) {
     const response = addTask(req, schema)
 
     res.json({response})
 }
 
-async function getTask(req, res, schema) {
-    const response = listTask(req, schema)
+async function getTask(req, res) {
+    const response = await listTask(req, schema)
 
     res.json({response})
 }
 
-async function editTask(req, res, schema) {
-    const response = taskEdit(req, schema)
+async function editTask(req, res) {
+    const response = await taskEdit(req, schema)
     
     res.json({response})
 }
 
-async function deleteTask(req, res,schema) {
-    const response = taskDelete(req, schema)
+async function deleteTask(req, res) {
+    const response = await taskDelete(req, schema)
     res.json({response})
 }
 
-async function login(req, res, schema) {
-    const response = logIn(req,schema)
+async function login(req, res) {
+    const response = await logIn(req,schema)
 
     res.json({response})
     
 }
 
-async function logout(req, res, schema) {
-    const response = logOut(req, schema)
+async function logout(req, res) {
+    const response = await logOut(req, schema)
     res.json({response})
 }
 
 module.exports = {
     registerUser,
-    createTable,
     createTask,
     deleteTask,
     getTask,

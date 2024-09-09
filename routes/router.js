@@ -9,12 +9,11 @@ router.post('/register-person', endpoint.registerUser);
 
 router.use(authMiddleware.authentication);
 
-router.post('/create-table', endpoint.createTable)
 router.post('/create-task', endpoint.createTask)
-router.post('/get-task', endpoint.getTask)
+router.get('/get-tasks', endpoint.getTask)
 router.post('/edit-task', endpoint.editTask)
-router.post('/get-user', endpoint.getUser)
-router.post('/delete-task', endpoint.deleteTask)
+router.get('/get-user', endpoint.getUser)
+router.post('/delete-tasks', endpoint.deleteTask)
 router.post('/logout', endpoint.logout)
 
 module.exports = router;
