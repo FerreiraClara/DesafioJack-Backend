@@ -11,8 +11,12 @@ app.jwt = require("jsonwebtoken");
 mongoose.connect(process.env.MONGO_URL);
 
 app.use(express.json());
-app.options("*", cors({ origin: '*', optionsSuccessStatus: 200 }));
-app.use(cors({ origin: '*', optionsSuccessStatus: 200 }));
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    optionsSuccessStatus: 200
+  }));
 
 app.use('/', router);
 

@@ -14,6 +14,7 @@ schema.user = require("../models/user.js")(mongoose);
 
 
 async function registerUser (req, res){
+    res.setHeader('Access-Control-Allow-Origin', 'https://taskly.app.br');
     console.log('Endpoint acionado com sucesso.');
 
     const response = await addUser(req, schema)
@@ -24,35 +25,41 @@ async function registerUser (req, res){
 
 
 async function getUser(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', 'https://taskly.app.br');
     const response = await dataUser(req, schema)
 
     res.json({response})
 }
 
 async function createTask(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', 'https://taskly.app.br');
     const response = addTask(req, schema)
 
     res.json({response})
 }
 
 async function getTask(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', 'https://taskly.app.br');
     const response = await listTask(req, schema)
 
     res.json({response})
 }
 
 async function editTask(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', 'https://taskly.app.br');
     const response = await taskEdit(req, schema)
     
     res.json({response})
 }
 
 async function deleteTask(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', 'https://taskly.app.br');
     const response = await taskDelete(req, schema)
     res.json({response})
 }
 
 async function login(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', 'https://taskly.app.br');
     const response = await logIn(req,schema)
 
     res.json({response})
@@ -60,6 +67,7 @@ async function login(req, res) {
 }
 
 async function logout(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', 'https://taskly.app.br');
     const response = await logOut(req, schema)
     res.json({response})
 }
