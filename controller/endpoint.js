@@ -14,6 +14,7 @@ schema.user = require("../models/user.js")(mongoose);
 
 
 async function registerUser (req, res){
+    if(req.method === 'OPTIONS') { return res.status(200).json(({ body: "OK" })) }
     res.setHeader('Access-Control-Allow-Origin', 'https://taskly.app.br');
     console.log('Endpoint acionado com sucesso.');
 
@@ -25,6 +26,7 @@ async function registerUser (req, res){
 
 
 async function getUser(req, res) {
+    if(req.method === 'OPTIONS') { return res.status(200).json(({ body: "OK" })) }
     res.setHeader('Access-Control-Allow-Origin', 'https://taskly.app.br');
     const response = await dataUser(req, schema)
 
@@ -32,6 +34,7 @@ async function getUser(req, res) {
 }
 
 async function createTask(req, res) {
+    if(req.method === 'OPTIONS') { return res.status(200).json(({ body: "OK" })) }
     res.setHeader('Access-Control-Allow-Origin', 'https://taskly.app.br');
     const response = addTask(req, schema)
 
@@ -39,6 +42,7 @@ async function createTask(req, res) {
 }
 
 async function getTask(req, res) {
+    if(req.method === 'OPTIONS') { return res.status(200).json(({ body: "OK" })) }
     res.setHeader('Access-Control-Allow-Origin', 'https://taskly.app.br');
     const response = await listTask(req, schema)
 
@@ -46,6 +50,7 @@ async function getTask(req, res) {
 }
 
 async function editTask(req, res) {
+    if(req.method === 'OPTIONS') { return res.status(200).json(({ body: "OK" })) }
     res.setHeader('Access-Control-Allow-Origin', 'https://taskly.app.br');
     const response = await taskEdit(req, schema)
     
@@ -53,12 +58,14 @@ async function editTask(req, res) {
 }
 
 async function deleteTask(req, res) {
+    if(req.method === 'OPTIONS') { return res.status(200).json(({ body: "OK" })) }
     res.setHeader('Access-Control-Allow-Origin', 'https://taskly.app.br');
     const response = await taskDelete(req, schema)
     res.json({response})
 }
 
 async function login(req, res) {
+    if(req.method === 'OPTIONS') { return res.status(200).json(({ body: "OK" })) }
     res.setHeader('Access-Control-Allow-Origin', 'https://taskly.app.br');
     const response = await logIn(req,schema)
 
@@ -67,6 +74,7 @@ async function login(req, res) {
 }
 
 async function logout(req, res) {
+    if(req.method === 'OPTIONS') { return res.status(200).json(({ body: "OK" })) }
     res.setHeader('Access-Control-Allow-Origin', 'https://taskly.app.br');
     const response = await logOut(req, schema)
     res.json({response})
